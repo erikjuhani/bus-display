@@ -1,13 +1,20 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
-const express = require('express')
-const app = express()
-const apiHandler = require('./apiHandler.js')
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const apiHandler = require('./ApiHandler.js')
 const bodyParser = require('body-parser')
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   apiHandler.getData()
-})
+});
 
-app.listen(3000, () => console.log('listening on port 3000!'))
+io.on('connection', socket => {
+  console.log('a user connected with socket ' + socket.id);
+  socket.emit('data', { coordinate: {lat: 60, lon: 24}});
+});
+
+http.listen(3000, () => {
+  console.log('listening on *:3000');
+});
