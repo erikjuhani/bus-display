@@ -7,12 +7,14 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  apiHandler.getData()
+  //apiHandler.getData()
 });
 
 io.on('connection', socket => {
   console.log('a user connected with socket ' + socket.id);
-  socket.emit('data', { coordinate: {lat: 60, lon: 24}});
+  apiHandler().then(data => {
+    socket.emit('data', { coordinate: {lat: data.lat, lon: data.lon}});    
+  });
 });
 
 http.listen(3000, () => {
