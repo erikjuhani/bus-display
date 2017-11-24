@@ -1,0 +1,23 @@
+{
+  "name": "bus-display",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erikjuhani/bus-display.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erikjuhani/bus-display/issues"
+  },
+  "homepage": "https://github.com/erikjuhani/bus-display#readme",
+  "dependencies": {
+    "leaflet": "^1.2.0",
+    "socket.io": "^2.0.4"
+  }
+}
