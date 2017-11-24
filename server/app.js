@@ -11,10 +11,13 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', socket => {
+  setInterval(callApiHandler, 5000);
   console.log('a user connected with socket ' + socket.id);
-  apiHandler().then(data => {
-    socket.emit('data', { coordinate: {lat: data.lat, lon: data.lon}});    
-  });
+  function callApiHandler {
+    apiHandler().then(data => {
+      socket.emit('data', { coordinate: {lat: data.lat, lon: data.lon}});    
+    });
+  }
 });
 
 http.listen(3000, () => {
