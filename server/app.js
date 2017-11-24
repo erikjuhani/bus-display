@@ -1,9 +1,13 @@
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const apiHandler = require('./ApiHandler.js')
+const bodyParser = require('body-parser')
+
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + './../src/index.html');
+  apiHandler.getData()
 });
 
 io.on('connection', socket => {
