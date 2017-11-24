@@ -1,10 +1,10 @@
 
 var slides   = [];
-var curSlide = 0;
+var curSlide = 1;
 
 $(function(){
   loadSlides();
-  startSlider();
+  //startSlider();
   changeSlide();
 });
 
