@@ -1,16 +1,39 @@
 <html> 
   <head>
-    
-    <script>document.write('<link rel="stylesheet" type="text/css" href="style.css?v=' + Date.now() + '"> ')</script>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>      
   </head>
-  <script>
-    var link = document.createElement('link');
-    link.href = 'style.css';
-  </script>
   <script type="module" src="app.js"></script>    
   <body>
-    <div id="map"></div>
+
+    <div class="ui fluid container">
+      <div class="ui center aligned grid" id="header">
+        <div class="row">
+          <div class="four wide column"></div>
+          <div class="eight wide column">
+            SEURAAVA PYSÄKKI
+            PENGERKATU 3
+          </div>
+          <div class="four wide column"></div>
+        </div>
+      </div>
+      <div id="slides">
+        <div data-slide-id="1" data-type="slide">
+          <div id="map"></div>
+        </div>
+        <div data-slide-id="2" data-type="slide" style="display: none">
+          2
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+    <script src="assets/js/slider.js"></script>
+    <script type="text/javascript">
+    </script>
   </body>
 </html>
