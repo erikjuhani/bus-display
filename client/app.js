@@ -1,3 +1,7 @@
+function lerp(v0, v1, t) {
+  return v0 + t * (v1 - v0);
+}
+
 load().then((data) => {
   console.log(data);
   const server = {
@@ -31,23 +35,38 @@ load().then((data) => {
   
   let stops = data.data.pattern.stops;
   let path = [];
-  let i = 0;
   let dir = 0;
 
   stops.map(x => {
-    path.push({lat: x.lat, lon: x.lon});
+    path.push(L.latLng(x.lat, x.lon));
     L.marker([x.lat, x.lon], {icon: stopIcon, zIndexOffset: -1}).addTo(map);
   });
 
-  setInterval(() => {
-    bus.setLatLng([path[i].lat, path[i].lon]);
-    map.panTo([path[i].lat, path[i].lon], 15);    
+  for (let i = path.length-1; i >= 0; i--) {
+    path.push(path[i]);
+  }
+
+  let animMarker = L.Marker.movingMarker(path, 200000, {icon: busIcon}).addTo(map);
+  animMarker.start();
+
+  console.log(animMarker.getLatLng());
+
+  console.log(animMarker);
+  /*setInterval(() => {
+    map.panTo([path[i].lat, path[i].lon], 15);
+    let latLerp;
+    let lonLerp;
+
     if (dir === 0) {
       i++;
+      latLerp = lerp(path[i-1].lat, path[i].lat, 0.5);
     }
     if (dir === 1) {
       i--;
+      latLerp = lerp(path[i+1].lat, path[i].lat, 0.5);
     }
+
+    bus.setLatLng([path[i].lat, path[i].lon]);    
 
     if (i === path.length - 1) {
       dir = 1;
@@ -55,14 +74,14 @@ load().then((data) => {
       dir = 0;
     }
 
-  }, 1000);
+  }, 1000);*/
   
   const socket = io(server.url + ':' + server.port);
   socket.on('data', (data) => {
     console.log(data[1]);
     const coordinate = data[1] ? data[1].coordinate : null;
     if(coordinate && !isNaN(coordinate.lat) && !isNaN(coordinate.lon)) {
-      map.panTo([coordinate.lat, coordinate.lon], 15);
+      //map.panTo([coordinate.lat, coordinate.lon], 15);
       bus.setLatLng([coordinate.lat, coordinate.lon]);
     }
   });
