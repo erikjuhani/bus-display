@@ -8,9 +8,10 @@ let bus = L.marker([0, 0]).addTo(map);
 
 const socket = io('http://localhost:3000');
 socket.on('data', (data) => {
-  console.log(data);
-  if(data) {
-    map.panTo([data.coordinate.lat, data.coordinate.lon], 15);
-    bus.setLatLng([data.coordinate.lat, data.coordinate.lon]);
+  console.log(data[1]);
+  const coordinate = data[1] ? data[1].coordinate : null;
+  if(coordinate && coordinate.lat && coordinate.lon) {
+    map.panTo([coordinate.lat, coordinate.lon], 15);
+    bus.setLatLng([coordinate.lat, coordinate.lon]);
   }
 });
