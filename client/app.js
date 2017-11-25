@@ -34,7 +34,7 @@ load().then((data) => {
   
   let stops = data.data.pattern.stops;
   let path = [];
-  let dir = 0;
+  //let dir = 0;
 
   stops.map(x => {
     path.push(L.latLng(x.lat, x.lon));
@@ -57,6 +57,10 @@ load().then((data) => {
 
   let bus2 = L.Marker.movingMarker(path, 200000, {icon: busIcon}).addTo(map);
   bus2.start();
+
+  setInterval(function(){
+  	listenStops(bus2, stops);
+  }, 100);
   
   const socket = io(server.url + ':' + server.port);
   socket.on('data', (data) => {
