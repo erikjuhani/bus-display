@@ -1,10 +1,14 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+const path = require('path');
 const apiHandler = require('./ApiHandler.js')
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, './../client')));
 
 app.get('/', (req, res) => {
   //apiHandler.getData()
@@ -12,12 +16,17 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', socket => {
-  setInterval(callApiHandler, 5000);
+  let coordinate;
+  setInterval(callApiHandler, 1000);
   console.log('a user connected with socket ' + socket.id);
 
   function callApiHandler() {
-    apiHandler().then(data => {
-      socket.emit('data', { coordinate: {lat: data.lat, lon: data.lon}});    
+    apiHandler(9999).then(data => {
+      if (!coordinate || coordinate && (coordinate.lat != data.lat || coordinate.lon != data.lon)) {
+
+        coordinate = {lat: data.lat, lon: data.lon};
+        socket.emit('data', [data, { coordinate: {lat: data.lat, lon: data.lon}}]);
+      }
     });
   }
 });
