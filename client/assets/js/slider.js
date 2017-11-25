@@ -1,10 +1,10 @@
 
 var slides   = [];
-var curSlide = 1;
+var curSlide = 0;
 
 $(function(){
   loadSlides();
-  //startSlider();
+  startSlider();
   changeSlide();
 });
 
@@ -18,7 +18,7 @@ function loadSlides(){
 function startSlider(){
   setInterval(function(){
     changeSlide();
-  }, 5000);
+  }, 7000);
 }
 
 function hideSlides(){

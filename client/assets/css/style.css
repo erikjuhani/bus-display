@@ -41,10 +41,11 @@ body {
 #map { height: 600px; }
 
 #infopage {
-	background-color: #00a2ff;
 	height: 600px;
 	color: #fff;
 	padding: 5%;
+	background: url('../img/hkibg.jpg');
+ 	background-size: auto 600px;
 }
 
 #infopageHeader {
@@ -54,5 +55,5 @@ body {
 }
 
 #infopageText {
-	font-size: 6;
+	font-size: 23;
 }
