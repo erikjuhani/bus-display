@@ -41,6 +41,16 @@ load().then((data) => {
     L.marker([x.lat, x.lon], {icon: stopIcon, zIndexOffset: -1}).addTo(map);
   });
 
+  for(let i = 0; i < stops.length; i++){
+  	var line = new L.Polyline(stops, {
+  		color: '#00a2ff',
+	 	weight: 12,
+	    opacity: 0.5,
+	    smoothFactor: 1
+  	});
+  	map.addLayer(line);
+  }
+  
   for (let i = path.length-1; i >= 0; i--) {
     path.push(path[i]);
   }
