@@ -41,9 +41,9 @@ load().then((data) => {
 
   for(let i = 0; i < stops.length; i++){
   	var line = new L.Polyline(stops, {
-  		color: '#00a2ff',
+  		color: '#00B0FF',
 	 	weight: 12,
-	    opacity: 0.5,
+	    opacity: 1,
 	    smoothFactor: 1
   	});
   	map.addLayer(line);
