@@ -1,3 +1,7 @@
+function lerp(v0, v1, t) {
+  return v0 + t * (v1 - v0);
+}
+
 load().then((data) => {
   console.log(data);
   const server = {
@@ -27,53 +31,29 @@ load().then((data) => {
   });
 
   let bus = L.marker([60, 24], {icon: busIcon}).addTo(map);
-  let bus2 = L.marker([0, 0], {icon: busIcon}).addTo(map);
   
   let stops = data.data.pattern.stops;
   let path = [];
-  let i = 0;
   let dir = 0;
 
   stops.map(x => {
-    path.push({lat: x.lat, lon: x.lon});
+    path.push(L.latLng(x.lat, x.lon));
     L.marker([x.lat, x.lon], {icon: stopIcon, zIndexOffset: -1}).addTo(map);
   });
 
-  for(let i = 0; i < stops.length; i++){
-  	var line = new L.Polyline(stops, {
-  		color: '#00a2ff',
-	 	weight: 12,
-	    opacity: 0.5,
-	    smoothFactor: 1
-  	});
-  	map.addLayer(line);
+  for (let i = path.length-1; i >= 0; i--) {
+    path.push(path[i]);
   }
 
-
-  setInterval(() => {
-    bus.setLatLng([path[i].lat, path[i].lon]);
-    map.panTo([path[i].lat, path[i].lon], 15);    
-    if (dir === 0) {
-      i++;
-    }
-    if (dir === 1) {
-      i--;
-    }
-
-    if (i === path.length - 1) {
-      dir = 1;
-    } else if (i === 0) {
-      dir = 0;
-    }
-
-  }, 1000);
+  let bus2 = L.Marker.movingMarker(path, 200000, {icon: busIcon}).addTo(map);
+  bus2.start();
   
   const socket = io(server.url + ':' + server.port);
   socket.on('data', (data) => {
     console.log(data[1]);
     const coordinate = data[1] ? data[1].coordinate : null;
     if(coordinate && !isNaN(coordinate.lat) && !isNaN(coordinate.lon)) {
-      map.panTo([coordinate.lat, coordinate.lon], 15);
+      //map.panTo([coordinate.lat, coordinate.lon], 15);
       bus.setLatLng([coordinate.lat, coordinate.lon]);
     }
   });
