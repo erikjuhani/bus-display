@@ -11,34 +11,29 @@
 
     <div class="ui fluid container">
       <div class="ui center aligned grid" id="header">
-        <div class="two wide column flex-center">
-          <h5 class="ui inverted header">PENGERKATU 1</h5>
+        <div class="five wide column flex-center">
+          <h4 class="ui inverted header previous-stop" data-stop="previous">PENGERKATU 1</h4>
         </div>
-        <div class="two wide column flex-center">
-          <h4 class="ui inverted header">PENGERKATU 2</h4>
-        </div>
-        <div class="eight wide column flex-center">
+        <div class="six wide column flex-center">
           <div>
             <h3 class="ui inverted header">
               SEURAAVA PYSÄKKI
             </h3>
-            <h1 class="ui inverted header">
+            <h1 class="ui inverted header" data-stop="current">
               PENGERKATU 3
             </h1>
           </div>
         </div>
-        <div class="two wide column flex-center">
-          <h4 class="ui inverted header">PENGERKATU 4</h4>
-        </div>
-        <div class="two wide column flex-center">
-          <h5 class="ui inverted header">PENGERKATU 5</h5>
+        <div class="five wide column flex-center" data-next="previous">
+          <h4 class="ui inverted header upcoming-stop">PENGERKATU 4</h4>
         </div>
       </div>
       <div id="slides">
-        <div data-slide-id="1" data-type="slide">
+        <div class="clearfix"></div>
+        <div data-slide-id="1" data-type="slide" class="slide">
           <div id="map"></div>
         </div>
-        <div data-slide-id="2" data-type="slide" style="display: none">
+        <div data-slide-id="2" data-type="slide" class="slide" style="display: none">
           2
         </div>
       </div>
@@ -48,6 +43,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
     <script src="assets/js/slider.js"></script>
     <script type="text/javascript">
+      var busId = 9999;
     </script>
   </body>
 </html>
