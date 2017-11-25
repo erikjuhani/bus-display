@@ -8,12 +8,14 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   //apiHandler.getData()
+  res.send('HELLO');
 });
 
 io.on('connection', socket => {
   setInterval(callApiHandler, 5000);
   console.log('a user connected with socket ' + socket.id);
-  function callApiHandler {
+
+  function callApiHandler() {
     apiHandler().then(data => {
       socket.emit('data', { coordinate: {lat: data.lat, lon: data.lon}});    
     });
