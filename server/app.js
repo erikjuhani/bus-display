@@ -12,9 +12,10 @@ app.use(bodyParser.json());
 app.use(router);
 app.use(express.static(path.join(__dirname, './../client')));
 
+let params = {};
 // http://server.com?busId=1612&routeId=23
 router.get('/', (req, res) => {
-  console.log(req.query);
+  params = req.query;
   res.sendFile(path.join(__dirname, './../client/index.html'));
 });
 
@@ -24,13 +25,15 @@ io.on('connection', socket => {
   console.log('a user connected with socket ' + socket.id);
 
   function callApiHandler() {
-    apiHandler(9999).then(data => {
-      if (!coordinate || coordinate && (coordinate.lat != data.lat || coordinate.lon != data.lon)) {
+    if (params) {
+      apiHandler(params.busId).then(data => {
+        if (!coordinate || coordinate && (coordinate.lat != data.lat || coordinate.lon != data.lon)) {
 
-        coordinate = {lat: data.lat, lon: data.lon};
-        socket.emit('data', [data, { coordinate: {lat: data.lat, lon: data.lon}}]);
-      }
-    });
+          coordinate = {lat: data.lat, lon: data.lon};
+          socket.emit('data', [data, { coordinate: {lat: data.lat, lon: data.lon}}]);
+        }
+      });
+    }
   }
 });
 
