@@ -1,3 +1,7 @@
+const server = {
+  url: 'http://localhost',
+  port: 3000
+}
 const map = L.map('map').setView([60, 24], 13);
 
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -6,11 +10,11 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 
 let bus = L.marker([0, 0]).addTo(map);
 
-const socket = io('http://localhost:3000');
+const socket = io(server.url + ':' + server.port);
 socket.on('data', (data) => {
   console.log(data[1]);
   const coordinate = data[1] ? data[1].coordinate : null;
-  if(coordinate && coordinate.lat && coordinate.lon) {
+  if(coordinate && !isNaN(coordinate.lat) && !isNaN(coordinate.lon)) {
     map.panTo([coordinate.lat, coordinate.lon], 15);
     bus.setLatLng([coordinate.lat, coordinate.lon]);
   }
