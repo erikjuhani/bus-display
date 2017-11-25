@@ -25,7 +25,7 @@ io.on('connection', socket => {
   console.log('a user connected with socket ' + socket.id);
 
   function callApiHandler() {
-    if (params) {
+    if (params.busId) {
       apiHandler(params.busId).then(data => {
         if (!coordinate || coordinate && (coordinate.lat != data.lat || coordinate.lon != data.lon)) {
 
