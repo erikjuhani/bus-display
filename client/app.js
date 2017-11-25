@@ -8,7 +8,17 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-let bus = L.marker([0, 0]).addTo(map);
+const busIcon = L.icon({
+    iconUrl: './assets/img/busIcon.png',
+    iconSize: [128, 128]
+});
+
+const stopIcon = L.icon({
+	iconUrl: './assets/img/stopIcon.png',
+	iconSize: [128, 128]
+});
+
+let bus = L.marker([60, 24], {icon: busIcon}).addTo(map);
 
 const socket = io(server.url + ':' + server.port);
 socket.on('data', (data) => {
