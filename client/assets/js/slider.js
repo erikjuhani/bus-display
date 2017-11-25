@@ -18,7 +18,7 @@ function loadSlides(){
 function startSlider(){
   setInterval(function(){
     changeSlide();
-  }, 5000);
+  }, 7000);
 }
 
 function hideSlides(){
@@ -27,6 +27,6 @@ function hideSlides(){
 
 function changeSlide(){
   hideSlides();
-  $("[data-slide-id=" + slides[curSlide] + "]").fadeIn(300);
+  $("[data-slide-id=" + slides[curSlide] + "]").slideDown(500);
   curSlide = curSlide++ >= slides.length - 1 ? 0 : curSlide++;
 }

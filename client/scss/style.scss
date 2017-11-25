@@ -50,3 +50,21 @@ body {
 .clearfix {
 	clear: both !important;
 }
+
+#infopage {
+	height: 600px;
+	color: #fff;
+	padding: 5%;
+	background: url('../img/hkibg.jpg');
+ 	background-size: auto 600px;
+}
+
+#infopageHeader {
+	padding-top: 2%;
+	padding-bottom: 2%;
+	font-size: 7.5vh;
+}
+
+#infopageText {
+	font-size: 23;
+}
