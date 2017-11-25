@@ -1,12 +1,70 @@
 <html> 
-  <head>  
-    <script>document.write('<link rel="stylesheet" type="text/css" href="style.css?v=' + Date.now() + '"> ')</script>
+  <head>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>      
   </head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
   <script type="module" src="app.js"></script>    
   <body>
-    <div id="map"></div>
+
+    <div class="ui fluid container">
+      <div class="ui center aligned grid" id="header">
+        <div class="five wide column flex-center">
+          <h4 class="ui inverted header previous-stop" data-stop="previous">PENGERKATU 1</h4>
+        </div>
+        <div class="six wide column flex-center">
+          <div>
+            <h3 class="ui inverted header">
+              SEURAAVA PYSÄKKI
+            </h3>
+            <h1 class="ui inverted header" data-stop="current">
+              PENGERKATU 3
+            </h1>
+          </div>
+        </div>
+        <div class="five wide column flex-center">
+          <h4 class="ui inverted header upcoming-stop" data-next="previous">PENGERKATU 4</h4>
+        </div>
+      </div>
+      <div id="slides">
+        <div class="clearfix"></div>
+        <div data-slide-id="1" data-type="slide" class="slide">
+          <div id="map"></div>
+        </div>
+        <div data-slide-id="2" data-type="slide" class="slide" style="display: none">
+          <div id="infopage">
+            <div>
+              <h1 id="infopageHeader" class="ui inverted header">
+                TITLE
+              </h1>
+            </div>
+            <div id="infopageText">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vulputate, ex at lacinia mattis, magna massa vehicula sem, congue aliquam tortor sapien volutpat nisl. Aliquam cursus posuere molestie. Curabitur rutrum sapien a nunc pulvinar fermentum. Quisque placerat tristique augue ut posuere. Duis in dignissim nisi, ut tincidunt augue. Aenean eu ipsum vel orci semper porttitor. Aliquam vitae est feugiat, tristique tortor non, luctus diam. Phasellus tincidunt, enim vitae mattis imperdiet, dui elit porta velit, nec hendrerit eros purus vel arcu. Aliquam fringilla, orci a ultricies maximus, nisi lectus vulputate tortor, id auctor dui mauris at nulla. Proin ac faucibus eros, eget efficitur erat.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+    <script src="assets/js/slider.js"></script>
+    <script src="assets/js/stops.js"></script>
+    <script type="text/javascript">
+      var busId   = "";
+      var routeId = "";
+
+      function getParams(){
+        var uri = window.location.href; //window.location.href
+        var url = new URL(uri);
+        busId   = url.searchParams.get("busId");
+        routeId = url.searchParams.get("routeId");
+      }
+
+      getParams();
+      load();
+
+    </script>
   </body>
 </html>
