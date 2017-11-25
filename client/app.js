@@ -16,8 +16,19 @@ load().then((data) => {
     '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ',
   id: 'hsl-map'}).addTo(map);
 
-  let bus = L.marker([0, 0]).addTo(map);
-  let bus2 = L.marker([0, 0]).addTo(map);
+  const busIcon = L.icon({
+      iconUrl: './assets/img/busIcon.png',
+      iconSize: [32, 32]
+  });
+
+  const stopIcon = L.icon({
+    iconUrl: './assets/img/stopIcon.png',
+    iconSize: [16, 16]
+  });
+
+  let bus = L.marker([60, 24], {icon: busIcon}).addTo(map);
+  let bus2 = L.marker([0, 0], {icon: busIcon}).addTo(map);
+  
   let stops = data.data.pattern.stops;
   let path = [];
   let i = 0;
@@ -25,7 +36,7 @@ load().then((data) => {
 
   stops.map(x => {
     path.push({lat: x.lat, lon: x.lon});
-    L.marker([x.lat, x.lon]).addTo(map);
+    L.marker([x.lat, x.lon], {icon: stopIcon, zIndexOffset: -1}).addTo(map);
   });
 
   setInterval(() => {
@@ -56,4 +67,3 @@ load().then((data) => {
     }
   });
 })
-
