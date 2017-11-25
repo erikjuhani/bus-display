@@ -9,7 +9,7 @@ load().then((data) => {
     zoomControl: false,
   };
 
-  const map = L.map('map', options).setView([60, 24], 13);
+  const map = L.map('map', options).setView([60, 24], 17);
   
   L.tileLayer('http://api.digitransit.fi/map/v1/{id}/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -17,13 +17,13 @@ load().then((data) => {
   id: 'hsl-map'}).addTo(map);
 
   const busIcon = L.icon({
-      iconUrl: './assets/img/busIcon.png',
-      iconSize: [32, 32]
+      iconUrl: './assets/img/busIcon-fill.png',
+      iconSize: [42, 42]
   });
 
   const stopIcon = L.icon({
     iconUrl: './assets/img/stopIcon.png',
-    iconSize: [16, 16]
+    iconSize: [32, 32]
   });
 
   let bus = L.marker([60, 24], {icon: busIcon}).addTo(map);
@@ -38,6 +38,17 @@ load().then((data) => {
     path.push({lat: x.lat, lon: x.lon});
     L.marker([x.lat, x.lon], {icon: stopIcon, zIndexOffset: -1}).addTo(map);
   });
+
+  for(let i = 0; i < stops.length; i++){
+  	var line = new L.Polyline(stops, {
+  		color: '#00a2ff',
+	 	weight: 12,
+	    opacity: 0.5,
+	    smoothFactor: 1
+  	});
+  	map.addLayer(line);
+  }
+
 
   setInterval(() => {
     bus.setLatLng([path[i].lat, path[i].lon]);
