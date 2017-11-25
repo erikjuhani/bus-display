@@ -42,8 +42,21 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
     <script src="assets/js/slider.js"></script>
+    <script src="assets/js/stops.js"></script>
     <script type="text/javascript">
-      var busId = 9999;
+      var busId   = "";
+      var routeId = "";
+
+      function getParams(){
+        var uri = window.location.href; //window.location.href
+        var url = new URL(uri);
+        busId   = url.searchParams.get("busId");
+        routeId = url.searchParams.get("routeId");
+      }
+
+      getParams();
+      load();
+
     </script>
   </body>
 </html>
