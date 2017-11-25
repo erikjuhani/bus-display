@@ -3,16 +3,19 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const path = require('path');
-const apiHandler = require('./ApiHandler.js')
-const bodyParser = require('body-parser')
+const apiHandler = require('./ApiHandler.js');
+const bodyParser = require('body-parser');
+const router = express.Router();
 
 app.use(bodyParser.json());
 
+app.use(router);
 app.use(express.static(path.join(__dirname, './../client')));
 
-app.get('/', (req, res) => {
-  //apiHandler.getData()
-  res.send('HELLO');
+// http://server.com?busId=1612&routeId=23
+router.get('/', (req, res) => {
+  console.log(req.query);
+  res.sendFile(path.join(__dirname, './../client/index.html'));
 });
 
 io.on('connection', socket => {
