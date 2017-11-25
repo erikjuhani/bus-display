@@ -4,7 +4,7 @@ var curSlide = 0;
 
 $(function(){
   loadSlides();
-  startSlider();
+  //startSlider();
   changeSlide();
 });
 

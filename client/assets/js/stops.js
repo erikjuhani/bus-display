@@ -4,12 +4,7 @@ var previousStop = "";
 var nextStop  = "";
 
 function load(){
-	getBusStops().then(response => {
-
-		drawBusStops(response);
-		
-		console.log(response);
-	});
+	return getBusStops();
 }
 
 function getBusStops(){
