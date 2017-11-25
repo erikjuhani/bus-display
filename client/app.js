@@ -13,7 +13,7 @@ load().then((data) => {
     zoomControl: false,
   };
 
-  const map = L.map('map', options).setView([60, 24], 13);
+  const map = L.map('map', options).setView([60, 24], 17);
   
   L.tileLayer('http://api.digitransit.fi/map/v1/{id}/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -21,17 +21,16 @@ load().then((data) => {
   id: 'hsl-map'}).addTo(map);
 
   const busIcon = L.icon({
-      iconUrl: './assets/img/busIcon.png',
-      iconSize: [32, 32]
+      iconUrl: './assets/img/busIcon-fill.png',
+      iconSize: [42, 42]
   });
 
   const stopIcon = L.icon({
     iconUrl: './assets/img/stopIcon.png',
-    iconSize: [16, 16]
+    iconSize: [32, 32]
   });
 
   let bus = L.marker([60, 24], {icon: busIcon}).addTo(map);
-  let bus2 = L.marker([0, 0], {icon: busIcon}).addTo(map);
   
   let stops = data.data.pattern.stops;
   let path = [];
@@ -46,35 +45,8 @@ load().then((data) => {
     path.push(path[i]);
   }
 
-  let animMarker = L.Marker.movingMarker(path, 200000, {icon: busIcon}).addTo(map);
-  animMarker.start();
-
-  console.log(animMarker.getLatLng());
-
-  console.log(animMarker);
-  /*setInterval(() => {
-    map.panTo([path[i].lat, path[i].lon], 15);
-    let latLerp;
-    let lonLerp;
-
-    if (dir === 0) {
-      i++;
-      latLerp = lerp(path[i-1].lat, path[i].lat, 0.5);
-    }
-    if (dir === 1) {
-      i--;
-      latLerp = lerp(path[i+1].lat, path[i].lat, 0.5);
-    }
-
-    bus.setLatLng([path[i].lat, path[i].lon]);    
-
-    if (i === path.length - 1) {
-      dir = 1;
-    } else if (i === 0) {
-      dir = 0;
-    }
-
-  }, 1000);*/
+  let bus2 = L.Marker.movingMarker(path, 200000, {icon: busIcon}).addTo(map);
+  bus2.start();
   
   const socket = io(server.url + ':' + server.port);
   socket.on('data', (data) => {
